@@ -50,6 +50,7 @@ func (x *XTykAPIGateway) ExtractTo(api *apidef.APIDefinition) {
 type Info struct {
 	// Unique ID of the API
 	ID    string          `bson:"id" json:"id,omitempty"`       // just required on database
+	// Unique database ID of the API
 	DBID  apidef.ObjectId `bson:"dbID" json:"dbID,omitempty"`   // just required on database
 	OrgID string          `bson:"orgID" json:"orgID,omitempty"` // just required on database
 	Name  string          `bson:"name" json:"name"`             // required
