@@ -11,6 +11,7 @@ type XTykAPIGateway struct {
 	// required- Main metadata about the API definition
 	Info       Info        `bson:"info" json:"info"`         // required
 	Upstream   Upstream    `bson:"upstream" json:"upstream"` // required
+	// Configurations related to the server
 	Server     Server      `bson:"server" json:"server"`     // required
 	Middleware *Middleware `bson:"middleware,omitempty" json:"middleware,omitempty"`
 }

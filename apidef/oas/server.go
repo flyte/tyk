@@ -3,6 +3,8 @@ package oas
 import "github.com/TykTechnologies/tyk/apidef"
 
 type Server struct {
+	// Represents the path to listen on. Any requests coming into the host, on the port that Tyk is configured to run on,
+	// that match this path will have the rules defined in the API Definition applied.
 	ListenPath     ListenPath      `bson:"listenPath" json:"listenPath"` // required
 	Slug           string          `bson:"slug,omitempty" json:"slug,omitempty"`
 	Authentication *Authentication `bson:"authentication,omitempty" json:"authentication,omitempty"`
