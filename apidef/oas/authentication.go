@@ -1,8 +1,6 @@
 package oas
 
 import (
-	"reflect"
-
 	"github.com/lonelycode/osin"
 
 	"github.com/TykTechnologies/tyk/apidef"
@@ -36,7 +34,7 @@ func (a *Authentication) Fill(api apidef.APIDefinition) {
 		a.Token.Fill(api.UseStandardAuth, authToken)
 	}
 
-	if reflect.DeepEqual(a.Token, &Token{}) {
+	if ShouldOmit(a.Token) {
 		a.Token = nil
 	}
 
@@ -48,7 +46,7 @@ func (a *Authentication) Fill(api apidef.APIDefinition) {
 		a.JWT.Fill(api)
 	}
 
-	if reflect.DeepEqual(a.JWT, &JWT{}) {
+	if ShouldOmit(a.JWT) {
 		a.JWT = nil
 	}
 
@@ -60,7 +58,7 @@ func (a *Authentication) Fill(api apidef.APIDefinition) {
 		a.Basic.Fill(api)
 	}
 
-	if reflect.DeepEqual(a.Basic, &Basic{}) {
+	if ShouldOmit(a.Basic) {
 		a.Basic = nil
 	}
 
@@ -72,7 +70,7 @@ func (a *Authentication) Fill(api apidef.APIDefinition) {
 		a.OAuth.Fill(api)
 	}
 
-	if reflect.DeepEqual(a.OAuth, &OAuth{}) {
+	if ShouldOmit(a.OAuth) {
 		a.OAuth = nil
 	}
 
@@ -84,7 +82,7 @@ func (a *Authentication) Fill(api apidef.APIDefinition) {
 		a.HMAC.Fill(api)
 	}
 
-	if reflect.DeepEqual(a.HMAC, &HMAC{}) {
+	if ShouldOmit(a.HMAC) {
 		a.HMAC = nil
 	}
 }
@@ -135,7 +133,7 @@ func (t *Token) Fill(enabled bool, authToken apidef.AuthConfig) {
 	}
 
 	t.Signature.Fill(authToken)
-	if (*t.Signature == Signature{}) {
+	if ShouldOmit(t.Signature) {
 		t.Signature = nil
 	}
 }
@@ -175,7 +173,7 @@ func (as *AuthSources) Fill(authConfig apidef.AuthConfig) {
 	}
 
 	as.Param.Fill(authConfig.UseParam, authConfig.ParamName)
-	if (*as.Param == AuthSource{}) {
+	if ShouldOmit(as.Param) {
 		as.Param = nil
 	}
 
@@ -185,7 +183,7 @@ func (as *AuthSources) Fill(authConfig apidef.AuthConfig) {
 	}
 
 	as.Cookie.Fill(authConfig.UseCookie, authConfig.CookieName)
-	if (*as.Cookie == AuthSource{}) {
+	if ShouldOmit(as.Cookie) {
 		as.Cookie = nil
 	}
 }
@@ -339,7 +337,7 @@ func (b *Basic) Fill(api apidef.APIDefinition) {
 
 	b.ExtractCredentialsFromBody.Fill(api)
 
-	if reflect.DeepEqual(b.ExtractCredentialsFromBody, &ExtractCredentialsFromBody{}) {
+	if ShouldOmit(b.ExtractCredentialsFromBody) {
 		b.ExtractCredentialsFromBody = nil
 	}
 }
@@ -406,7 +404,7 @@ func (o *OAuth) Fill(api apidef.APIDefinition) {
 
 	o.Notifications.Fill(api.NotificationsDetails)
 
-	if reflect.DeepEqual(o.Notifications, &Notifications{}) {
+	if ShouldOmit(o.Notifications) {
 		o.Notifications = nil
 	}
 }

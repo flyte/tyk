@@ -1,8 +1,6 @@
 package oas
 
 import (
-	"reflect"
-
 	"github.com/TykTechnologies/tyk/apidef"
 )
 
@@ -16,7 +14,7 @@ func (m *Middleware) Fill(api apidef.APIDefinition) {
 	}
 
 	m.Global.Fill(api)
-	if reflect.DeepEqual(m.Global, &Global{}) {
+	if ShouldOmit(m.Global) {
 		m.Global = nil
 	}
 }
@@ -39,7 +37,7 @@ func (g *Global) Fill(api apidef.APIDefinition) {
 	}
 
 	g.CORS.Fill(api.CORS)
-	if reflect.DeepEqual(g.CORS, &CORS{}) {
+	if ShouldOmit(g.CORS) {
 		g.CORS = nil
 	}
 
@@ -49,7 +47,7 @@ func (g *Global) Fill(api apidef.APIDefinition) {
 	}
 
 	g.Cache.Fill(api.CacheOptions)
-	if reflect.DeepEqual(g.Cache, &Cache{}) {
+	if ShouldOmit(g.Cache) {
 		g.Cache = nil
 	}
 }

@@ -17,7 +17,7 @@ func (s *Server) Fill(api apidef.APIDefinition) {
 	}
 
 	s.Authentication.Fill(api)
-	if (*s.Authentication == Authentication{}) {
+	if ShouldOmit(s.Authentication) {
 		s.Authentication = nil
 	}
 }

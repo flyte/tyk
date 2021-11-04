@@ -23,7 +23,7 @@ func (x *XTykAPIGateway) Fill(api apidef.APIDefinition) {
 	}
 
 	x.Middleware.Fill(api)
-	if (*x.Middleware == Middleware{}) {
+	if ShouldOmit(x.Middleware) {
 		x.Middleware = nil
 	}
 }

@@ -16,7 +16,7 @@ func (u *Upstream) Fill(api apidef.APIDefinition) {
 	}
 
 	u.ServiceDiscovery.Fill(api.Proxy.ServiceDiscovery)
-	if (*u.ServiceDiscovery == ServiceDiscovery{}) {
+	if ShouldOmit(u.ServiceDiscovery) {
 		u.ServiceDiscovery = nil
 	}
 }
@@ -78,7 +78,7 @@ func (t *Test) Fill(uptimeTests apidef.UptimeTests) {
 	}
 
 	t.ServiceDiscovery.Fill(uptimeTests.Config.ServiceDiscovery)
-	if (*t.ServiceDiscovery == ServiceDiscovery{}) {
+	if ShouldOmit(t.ServiceDiscovery) {
 		t.ServiceDiscovery = nil
 	}
 }
