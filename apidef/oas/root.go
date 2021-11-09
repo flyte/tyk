@@ -9,10 +9,10 @@ const ExtensionTykAPIGateway = "x-tyk-api-gateway"
 // required- Tyk API Gateway Extension
 type XTykAPIGateway struct {
 	// required- Main metadata about the API definition
-	Info       Info        `bson:"info" json:"info"`         // required
-	Upstream   Upstream    `bson:"upstream" json:"upstream"` // required
+	Info     Info     `bson:"info" json:"info"`         // required
+	Upstream Upstream `bson:"upstream" json:"upstream"` // required
 	// Configurations related to the server
-	Server     Server      `bson:"server" json:"server"`     // required
+	Server     Server      `bson:"server" json:"server"` // required
 	Middleware *Middleware `bson:"middleware,omitempty" json:"middleware,omitempty"`
 }
 
@@ -49,14 +49,16 @@ func (x *XTykAPIGateway) ExtractTo(api *apidef.APIDefinition) {
 }
 
 type Info struct {
-	// Unique ID of the API
-	ID    string          `bson:"id" json:"id,omitempty"`       // just required on database
-	// Unique database ID of the API
-	DBID  apidef.ObjectId `bson:"dbID" json:"dbID,omitempty"`   // just required on database
-	OrgID string          `bson:"orgID" json:"orgID,omitempty"` // just required on database
-	Name  string          `bson:"name" json:"name"`             // required
+	// ID is unique ID of the API.
+	// Old API Definition: `api_id`
+	ID string `bson:"id" json:"id,omitempty"`
+	// DBID is unique database ID of the API.
+	// Old API Definition: `id`
+	DBID  apidef.ObjectId `bson:"dbID" json:"dbID,omitempty"`
+	OrgID string          `bson:"orgID" json:"orgID,omitempty"`
+	Name  string          `bson:"name" json:"name"` // required
 	// Configurations related to the state of the API
-	State State           `bson:"state" json:"state"`           // required
+	State State `bson:"state" json:"state"` // required
 }
 
 func (i *Info) Fill(api apidef.APIDefinition) {
@@ -76,8 +78,11 @@ func (i *Info) ExtractTo(api *apidef.APIDefinition) {
 }
 
 type State struct {
-	// if true, the API is enabled.
+	// Active enables the API.
+	// Old API Definition: `active`
 	Active   bool `bson:"active" json:"active"` // required
+	// Internal makes the API accessible only internally.
+	// Old API Definition: `internal`
 	Internal bool `bson:"internal,omitempty" json:"internal,omitempty"`
 }
 
